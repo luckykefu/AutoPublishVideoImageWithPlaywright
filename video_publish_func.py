@@ -98,10 +98,11 @@ async def bjh(**kwargs):
         
         # 发布
         await page.locator(".cover").first.wait_for()
+        await page.pause()
+
         await page.get_by_role("button").first.click()
         print('发布成功')
             
-        await page.pause()
 
 
 
@@ -154,9 +155,10 @@ async def sph(**kwargs):
 
         # 发布
         await page.wait_for_timeout(3000)
+        await page.pause()
+
         await page.get_by_role("button", name="发表").click()
         print('发布成功')
-        await page.pause()
 
 async def wb(**kwargs):
     async with async_playwright() as p:
@@ -191,7 +193,7 @@ async def wb(**kwargs):
         print("视频地址:",video)
         page.once("filechooser", lambda file_chooser: file_chooser.set_files(video))
         await page.get_by_role("button", name="上传视频").click()
-        await page.get_by_text("上传完成").first.wait_for()
+        await page.get_by_text("上传完成").first.wait_for(timeout=120*1000)
         print('上传视频成功')
 
         await page.get_by_text("原创").click()
@@ -207,11 +209,12 @@ async def wb(**kwargs):
         print('填写描述成功')
 
         # 发布
+        await page.pause()
+
         await page.wait_for_timeout(3000)
         await page.get_by_role("button", name="发布").click()
         print('发布成功')
             
-        await page.pause()
 
 
 async def dy(**kwargs):
@@ -272,10 +275,11 @@ async def dy(**kwargs):
         
         # 发布
         await page.wait_for_timeout(3000)
+        await page.pause()
+
         await page.get_by_role("button", name="发布", exact=True).click()
         print('发布成功')
             
-        await page.pause()
 
 
 async def blbl(**kwargs):
@@ -346,10 +350,11 @@ async def blbl(**kwargs):
         
         # 发布
         await page1.wait_for_timeout(3000)
+        await page1.pause()
         await page1.get_by_text("立即投稿").click()
         print('发布成功')
             
-        await page1.pause()
+        
 
 async def ks(**kwargs):
     async with async_playwright() as p:
@@ -400,10 +405,12 @@ async def ks(**kwargs):
         print('填写标题成功')
         
         # # 发布
+        await page.pause()
+        await page.wait_for_timeout(3000)
         await page.get_by_role("button", name="发布").click()
         print('发布成功')
             
-        await page.pause()
+        
 
 
 async def xhs(**kwargs):
@@ -440,6 +447,7 @@ async def xhs(**kwargs):
         
         await page.locator('a.btn').click()
         
+        await page.wait_for_load_state('load')
         video=kwargs.get('file_path')
         print("视频地址:",video)
         await page.locator('div.drag-over input').set_input_files(video)
@@ -458,11 +466,12 @@ async def xhs(**kwargs):
         print('填写描述成功')
         
         # 发布
-        await page.wait_for_timeout(10000)
+        await page.wait_for_timeout(3000)
+        await page.pause()
         await page.get_by_role("button", name="发布").click()
         print('发布成功')
             
-        await page.pause()
+        
 
 
 
